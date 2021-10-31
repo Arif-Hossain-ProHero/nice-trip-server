@@ -39,7 +39,6 @@ async function run() {
     app.get("/orders", async (req, res) => {
       const cursor = orderCollection.find({});
       const orders = await cursor.toArray();
-      console.log("getting all orders");
       res.send(orders);
     });
     //GET SINGLE USER
@@ -113,6 +112,3 @@ app.get("/", (req, res) => {
 app.listen(port, () => {
   console.log("Running server on port: ", port);
 });
-
-// db password: YrOjGpjrewd6VPIt
-// db user: firstdb
