@@ -22,7 +22,14 @@ async function run() {
     const database = client.db("nice-trip");
     const packageCollection = database.collection("packages");
     const orderCollection = database.collection("orders");
-    //GET PACKAGES API
+    const blogsCollection = database.collection("blogs");
+    //GET Blogs API
+    app.get("/blogs", async (req, res) => {
+      const cursor = blogsCollection.find({});
+      const blogs = await cursor.toArray();
+      res.send(blogs);
+    });
+    //GET Packages API
     app.get("/packages", async (req, res) => {
       const cursor = packageCollection.find({});
       const packages = await cursor.toArray();
@@ -47,6 +54,14 @@ async function run() {
     app.post("/packages", async (req, res) => {
       const newPackage = req.body;
       const result = await packageCollection.insertOne(newPackage);
+      console.log("get data: ", req.body);
+      console.log("Added user: ", result);
+      res.json(result);
+    });
+    //POST my Order
+    app.post("/orders", async (req, res) => {
+      const newOrder = req.body;
+      const result = await orderCollection.insertOne(newOrder);
       console.log("get data: ", req.body);
       console.log("Added user: ", result);
       res.json(result);
